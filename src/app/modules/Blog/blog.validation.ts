@@ -15,6 +15,21 @@ const createBlogValidationSchema = z.object({
       .optional(),
   }),
 });
+const updateBlogValidationSchema = z.object({
+  body: z.object({
+    title: z
+      .string({
+        invalid_type_error: 'Title must be string',
+      })
+      .optional(),
+    content: z
+      .string({
+        invalid_type_error: 'Content must be string',
+      })
+      .optional(),
+  }),
+});
 export const BlogValidations = {
   createBlogValidationSchema,
+  updateBlogValidationSchema,
 };

@@ -28,6 +28,39 @@ const createBlogIntoDB = async (
   return result;
 };
 
+const updateBlogIntoDB = async (
+  authenticateInfo: JwtPayload,
+  id: string,
+  payload: Partial<TBlog>,
+) => {
+  const isBlogExsit = await Blog.isBlogExistById(id);
+  //check if blog exist or not
+  if (!isBlogExsit) {
+    throw new AppError(404, 'Blog not found!');
+  }
+
+  const isUserExist = await User.checkUserExistById(authenticateInfo?.userId);
+  //check if user is exist or not
+  if (!isUserExist) {
+    throw new AppError(404, 'User not found!');
+  }
+  //check if token is valid or not
+  if (isBlogExsit?.author.toString() !== authenticateInfo?.userId) {
+    throw new AppError(401, 'Invalid credentials');
+  }
+  //delete the blog
+  const result = await Blog.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  })
+    .select('title content author')
+    .populate({
+      path: 'author',
+      select: 'name email role isBlocked',
+    });
+  return result;
+};
+
 const deleteBlogIntoDB = async (authenticateInfo: JwtPayload, id: string) => {
   const isBlogExsit = await Blog.isBlogExistById(id);
   //check if blog exist or not
@@ -51,4 +84,5 @@ const deleteBlogIntoDB = async (authenticateInfo: JwtPayload, id: string) => {
 export const BlogServies = {
   createBlogIntoDB,
   deleteBlogIntoDB,
+  updateBlogIntoDB,
 };

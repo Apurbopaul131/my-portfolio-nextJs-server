@@ -17,6 +17,22 @@ const createBlog = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const result = await BlogServies.updateBlogIntoDB(req.user, id, req.body);
+    //send response to client
+    sendResponse(res, {
+      success: true,
+      message: 'Blog updated successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
@@ -31,7 +47,9 @@ const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
+
 export const BlogControllers = {
   createBlog,
   deleteBlog,
+  updateBlog,
 };
