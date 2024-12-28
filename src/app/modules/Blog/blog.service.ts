@@ -21,7 +21,10 @@ const createBlogIntoDB = async (
   //Find blog by id for take some fields and populate author
   const result = await Blog.findById(createdBlog._id)
     .select('title content author')
-    .populate('author');
+    .populate({
+      path: 'author',
+      select: 'name email role isBlocked',
+    });
   return result;
 };
 
