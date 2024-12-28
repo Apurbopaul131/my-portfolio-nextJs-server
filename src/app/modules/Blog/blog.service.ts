@@ -1,6 +1,8 @@
 import { JwtPayload } from 'jsonwebtoken';
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../error/appError';
 import { User } from '../User/user.model';
+import { searchableFields } from './blog.constant';
 import { TBlog } from './blog.interface';
 import { Blog } from './blog.model';
 
@@ -81,8 +83,28 @@ const deleteBlogIntoDB = async (authenticateInfo: JwtPayload, id: string) => {
   const result = await Blog.findByIdAndDelete(id);
   return result;
 };
+
+const getAllBlogFromDB = async (query: Record<string, unknown>) => {
+  const blogQuery = new QueryBuilder(
+    Blog.find({}).select('title content author').populate({
+      path: 'author',
+      select: 'name email role isBlocked',
+    }),
+    query,
+  )
+    .search(searchableFields)
+    .filter()
+    .sort();
+  const result = await blogQuery.queryModel;
+  // const result = await Blog.find({}).select('title content author').populate({
+  //   path: 'author',
+  //   select: 'name email role isBlocked',
+  // });
+  return result;
+};
 export const BlogServies = {
   createBlogIntoDB,
   deleteBlogIntoDB,
   updateBlogIntoDB,
+  getAllBlogFromDB,
 };
