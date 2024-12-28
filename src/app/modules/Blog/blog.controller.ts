@@ -20,13 +20,12 @@ const createBlog = async (req: Request, res: Response, next: NextFunction) => {
 const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const result = await BlogServies.deleteBlogIntoDB(req.user, id);
+    await BlogServies.deleteBlogIntoDB(req.user, id);
     //send response to client
     sendResponse(res, {
       success: true,
       message: 'Blog deleted successfully',
       statusCode: 200,
-      data: result,
     });
   } catch (err) {
     next(err);
