@@ -8,7 +8,10 @@ import { User } from '../modules/User/user.model';
 const auth = (...requiredRoles: TUserRole[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const token = req.headers.authorization;
+      const token = (req.headers.authorization as string).replace(
+        /^Bearer\s/,
+        '',
+      );
       //check if token send from client
       if (!token) {
         throw new AppError(401, 'Invalid credentials');

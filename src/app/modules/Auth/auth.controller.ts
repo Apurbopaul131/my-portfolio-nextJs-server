@@ -9,11 +9,12 @@ const registerUser = async (
 ) => {
   try {
     const result = await AuthServices.registerUserIntoDB(req.body);
+    //destructure the properities to send the client
     const { _id, name, email } = result.toObject();
     //send response to client
     sendResponse(res, {
       success: true,
-      message: 'Blog created successfully',
+      message: 'User registered successfully',
       statusCode: 201,
       data: {
         _id,
