@@ -13,6 +13,17 @@ const blockedUserByAdmin = catchAsync(async (req: Request, res: Response) => {
     statusCode: 200,
   });
 });
+const deletedBlogByAdmin = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  await AdminServices.deletedBlogByAdminIntoDB(req.user, id);
+  //send response to client
+  sendResponse(res, {
+    success: true,
+    message: 'Blog deleted successfully',
+    statusCode: 200,
+  });
+});
 export const AdminControllers = {
   blockedUserByAdmin,
+  deletedBlogByAdmin,
 };
