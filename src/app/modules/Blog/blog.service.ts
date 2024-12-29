@@ -15,6 +15,10 @@ const createBlogIntoDB = async (
   if (!isUserExist) {
     throw new AppError(404, 'User not found!');
   }
+  //check user role
+  if (isUserExist?.role !== 'user') {
+    throw new AppError(401, 'Invalid credentials');
+  }
   //create blog
   const createdBlog = await Blog.create({
     ...payload,
@@ -96,10 +100,6 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
     .filter()
     .sort();
   const result = await blogQuery.queryModel;
-  // const result = await Blog.find({}).select('title content author').populate({
-  //   path: 'author',
-  //   select: 'name email role isBlocked',
-  // });
   return result;
 };
 export const BlogServies = {
