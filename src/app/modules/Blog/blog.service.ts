@@ -15,9 +15,9 @@ const createBlogIntoDB = async (
   if (!isUserExist) {
     throw new AppError(404, 'User not found!');
   }
-  //check user role
-  if (isUserExist?.role !== 'user') {
-    throw new AppError(401, 'Invalid credentials');
+  //check if user is blocked
+  if (isUserExist.isBlocked) {
+    throw new AppError(403, 'User is blocked!');
   }
   //create blog
   const createdBlog = await Blog.create({
@@ -50,6 +50,10 @@ const updateBlogIntoDB = async (
   if (!isUserExist) {
     throw new AppError(404, 'User not found!');
   }
+  //check if user blocked
+  if (isUserExist?.isBlocked) {
+    throw new AppError(403, 'User is blocked!');
+  }
   //check if token is valid or not
   if (isBlogExsit?.author.toString() !== authenticateInfo?.userId) {
     throw new AppError(401, 'Invalid credentials');
@@ -78,6 +82,10 @@ const deleteBlogIntoDB = async (authenticateInfo: JwtPayload, id: string) => {
   //check if user is exist or not
   if (!isUserExist) {
     throw new AppError(404, 'User not found!');
+  }
+  //check if user blocked
+  if (isUserExist?.isBlocked) {
+    throw new AppError(403, 'User is blocked!');
   }
   //check if token is valid or not
   if (isBlogExsit?.author.toString() !== authenticateInfo?.userId) {
