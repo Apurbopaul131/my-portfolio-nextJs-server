@@ -21,6 +21,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
         token,
         config.jwt_access_secret as string,
       ) as JwtPayload;
+
       //destructure the decoded property
       const { userId, role } = decoded;
       const isUserExist = await User.checkUserExistById(userId);

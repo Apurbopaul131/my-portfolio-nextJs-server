@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import globalErrorHandler from './app/middlewires/globalError';
@@ -11,6 +12,7 @@ const app: Application = express();
 //parsers
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 //Auth Route
 app.use('/api', AuthRoutes);

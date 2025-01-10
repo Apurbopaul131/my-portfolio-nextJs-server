@@ -1,9 +1,7 @@
-import jwt from 'jsonwebtoken';
-import { Types } from 'mongoose';
-import { TRole } from '../User/user.interface';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const createToken = (
-  jwtPayload: { userId: Types.ObjectId; email: string; role: TRole },
+  jwtPayload: JwtPayload,
   secret: string,
   expiresIn: string,
 ) => {

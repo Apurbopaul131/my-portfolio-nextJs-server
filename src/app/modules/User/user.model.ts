@@ -45,7 +45,7 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
-//Create a statics function that find user by email
+//Create a statics function that find user by default id
 userSchema.statics.checkUserExistById = async function (id) {
   const isUserExist = await this.findById(id);
   return isUserExist;

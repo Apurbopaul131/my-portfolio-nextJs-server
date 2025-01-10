@@ -16,6 +16,14 @@ const loginUserValidationSchema = z.object({
       .min(8, { message: 'Must be 8 or more characters long' }),
   }),
 });
+const refreshTokenValidationSchema = z.object({
+  cookies: z.object({
+    refreshToken: z.string({
+      required_error: 'Refresh token is required!',
+    }),
+  }),
+});
 export const AuthValidations = {
   loginUserValidationSchema,
+  refreshTokenValidationSchema,
 };

@@ -4,7 +4,6 @@ import { TRole, TUser } from '../User/user.interface';
 import { User } from '../User/user.model';
 import { TLoginUser } from './auth.interface';
 import { createToken } from './auth.uitls';
-
 const registerUserIntoDB = async (payload: TUser) => {
   const result = await User.create(payload);
   return result;
@@ -40,10 +39,12 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_access_secret as string,
     config.jwt_access_token_expires_in as string,
   );
+
   return {
     token: accessToken,
   };
 };
+
 export const AuthServices = {
   registerUserIntoDB,
   loginUser,
