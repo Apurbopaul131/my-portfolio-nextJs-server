@@ -1,5 +1,5 @@
 import config from '../../config';
-import AppError from '../../error/appError';
+import AppError from '../../error/AppError';
 import { TRole, TUser } from '../User/user.interface';
 import { User } from '../User/user.model';
 import { TLoginUser } from './auth.interface';

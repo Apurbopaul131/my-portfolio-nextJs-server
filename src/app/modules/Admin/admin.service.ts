@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
-import AppError from '../../error/appError';
+import AppError from '../../error/AppError';
 import { Blog } from '../Blog/blog.model';
 import { User } from '../User/user.model';
 

@@ -1,6 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken';
 import QueryBuilder from '../../builder/QueryBuilder';
-import AppError from '../../error/appError';
+import AppError from '../../error/AppError';
 import { User } from '../User/user.model';
 import { searchableFields } from './blog.constant';
 import { TBlog } from './blog.interface';

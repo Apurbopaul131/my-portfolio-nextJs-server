@@ -25,6 +25,7 @@ const blogSchema = new Schema<TBlog, BlogModel>(
     timestamps: true,
   },
 );
+//This statics function is used to find already exising blog
 blogSchema.statics.isBlogExistById = async function (id) {
   const isBlogExist = await this.findById(id);
   return isBlogExist;

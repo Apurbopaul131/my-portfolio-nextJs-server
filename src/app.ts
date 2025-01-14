@@ -22,7 +22,7 @@ app.use('/api', BlogRoutes);
 app.use('/api', AdminRoutes);
 //checking route
 app.get('/', (req: Request, res: Response) => {
-  res.send('connected Successfully.');
+  res.send('Connected successfully.');
 });
 //global error handler
 app.use(globalErrorHandler);

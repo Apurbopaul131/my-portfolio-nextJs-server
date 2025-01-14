@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
-import AppError from '../error/appError';
+import AppError from '../error/AppError';
 import { TUserRole } from '../modules/User/user.interface';
 import { User } from '../modules/User/user.model';
 

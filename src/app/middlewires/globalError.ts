@@ -5,8 +5,11 @@ import { ErrorRequestHandler } from 'express';
 import mongoose from 'mongoose';
 import { ZodError } from 'zod';
 import config from '../config';
-import handleMongooseValidationError from '../error/mongooseValidationError';
-import handleZodError from '../error/zodError';
+import AppError from '../error/AppError';
+import handleDuplicateError from '../error/handleDuplicateError';
+import handleMongooseCastError from '../error/handleMongooseCastError';
+import handleMongooseValidationError from '../error/handleValidationError';
+import handleZodError from '../error/handleZodError';
 import { TErrorSources, TGenericsErrorResponse } from '../interface/error';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
@@ -29,6 +32,34 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
+  } else if (error.name === 'CastError') {
+    const simplifiedError: TGenericsErrorResponse =
+      handleMongooseCastError(error);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else if (error?.code === 11000) {
+    const simplifiedError: TGenericsErrorResponse = handleDuplicateError(error);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else if (error instanceof AppError) {
+    statusCode = error?.statusCode;
+    message = error?.message;
+    errorSources = [
+      {
+        path: '',
+        message,
+      },
+    ];
+  } else if (error instanceof Error) {
+    message = error?.message;
+    errorSources = [
+      {
+        path: '',
+        message,
+      },
+    ];
   }
   res.status(statusCode).json({
     success: false,
