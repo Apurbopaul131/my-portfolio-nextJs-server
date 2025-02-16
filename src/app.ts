@@ -3,9 +3,10 @@ import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import globalErrorHandler from './app/middlewires/globalError';
 import notFound from './app/middlewires/notFound';
-import { AdminRoutes } from './app/modules/Admin/admin.route';
 import { AuthRoutes } from './app/modules/Auth/auth.route';
 import { BlogRoutes } from './app/modules/Blog/blog.route';
+import { ContactRoutes } from './app/modules/Contact/contact.route';
+import { ProjectRoutes } from './app/modules/Project/project.router';
 
 const app: Application = express();
 
@@ -18,8 +19,10 @@ app.use(cookieParser());
 app.use('/api', AuthRoutes);
 //Blog Route
 app.use('/api', BlogRoutes);
-//Admin Route
-app.use('/api', AdminRoutes);
+//Contact route
+app.use('/api', ContactRoutes);
+//project route
+app.use('/api', ProjectRoutes);
 //checking route
 app.get('/', (req: Request, res: Response) => {
   res.send('Connected successfully.');

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { blogCategories } from './blog.constant';
 
 const createBlogValidationSchema = z.object({
   body: z.object({
@@ -10,9 +11,14 @@ const createBlogValidationSchema = z.object({
       required_error: 'Content is required',
       invalid_type_error: 'Content must be string',
     }),
-    isPublished: z
-      .boolean({ invalid_type_error: 'isPublisher must be boolean' })
-      .optional(),
+    image: z.string({
+      required_error: 'Image is required',
+      invalid_type_error: 'Image must be string',
+    }),
+    category: z.enum([...blogCategories] as [string, ...string[]], {
+      message:
+        'Category must be Web Development | Mobile App Development | Software Engineering & Best Practices | Programming Languages | Data Science & Machine Learning | Cloud Computing & DevOps | Cybersecurity & Ethical Hacking | Game Development | Blockchain & Web3 Development',
+    }),
   }),
 });
 const updateBlogValidationSchema = z.object({
@@ -25,6 +31,18 @@ const updateBlogValidationSchema = z.object({
     content: z
       .string({
         invalid_type_error: 'Content must be string',
+      })
+      .optional(),
+    image: z
+      .string({
+        required_error: 'Image is required',
+        invalid_type_error: 'Image must be string',
+      })
+      .optional(),
+    category: z
+      .enum([...blogCategories] as [string, ...string[]], {
+        message:
+          'Category must be Web Development | Mobile App Development | Software Engineering & Best Practices | Programming Languages | Data Science & Machine Learning | Cloud Computing & DevOps | Cybersecurity & Ethical Hacking | Game Development | Blockchain & Web3 Development',
       })
       .optional(),
   }),

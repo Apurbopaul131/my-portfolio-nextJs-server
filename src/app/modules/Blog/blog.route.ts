@@ -9,20 +9,25 @@ import { BlogValidations } from './blog.validation';
 const router = express.Router();
 //create blog route
 router.post(
-  '/blogs',
-  auth(USER_ROLE.user),
+  '/dashboard/blogs',
   validateRequest(BlogValidations.createBlogValidationSchema),
   BlogControllers.createBlog,
 );
 //update blog route
 router.patch(
-  '/blogs/:id',
+  '/dashboard/blogs/:id',
   auth(USER_ROLE.user),
   validateRequest(BlogValidations.updateBlogValidationSchema),
   BlogControllers.updateBlog,
 );
 //dlelete blog route
-router.delete('/blogs/:id', auth(USER_ROLE.user), BlogControllers.deleteBlog);
+router.delete('/dashboard/blogs/:id', BlogControllers.deleteBlog);
+router.get(
+  '/dashboard/blogs/user-specific/:email',
+  BlogControllers.getUserSpecificBlog,
+);
+//get single blog
+router.get('/blogs/:id', BlogControllers.getSingleBlog);
 //Show all blogs route
 router.get('/blogs', BlogControllers.getAllBlog);
 export const BlogRoutes = router;

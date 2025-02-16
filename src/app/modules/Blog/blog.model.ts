@@ -12,13 +12,34 @@ const blogSchema = new Schema<TBlog, BlogModel>(
       required: [true, 'Content is required.'],
     },
     author: {
-      type: Schema.Types.ObjectId,
+      type: String,
       required: [true, 'Author is required.'],
-      ref: 'User',
     },
-    isPublished: {
-      type: Boolean,
-      default: true,
+    image: {
+      type: String,
+      required: [true, 'Image url is required.'],
+    },
+    category: {
+      type: String,
+      enum: {
+        values: [
+          'Web Development',
+          'Mobile App Development',
+          'Software Engineering & Best Practices',
+          'Programming Languages',
+          'Data Science & Machine Learning',
+          'Cloud Computing & DevOps',
+          'Cybersecurity & Ethical Hacking',
+          'Game Development',
+          'Blockchain & Web3 Development',
+          'Tech Trends & Career Growth',
+        ],
+        message: '{VALUE} is not supported',
+      },
+    },
+    publish_date: {
+      type: Date,
+      default: Date.now,
     },
   },
   {

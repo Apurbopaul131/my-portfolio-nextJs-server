@@ -4,7 +4,7 @@ import sendResponse from '../../uitls/sendResponse';
 import { BlogServies } from './blog.service';
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
-  const result = await BlogServies.createBlogIntoDB(req.user, req.body);
+  const result = await BlogServies.createBlogIntoDB(req.body);
   //send response to client
   sendResponse(res, {
     success: true,
@@ -28,7 +28,7 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
 
 const deleteBlog = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  await BlogServies.deleteBlogIntoDB(req.user, id);
+  await BlogServies.deleteBlogIntoDB(id);
   //send response to client
   sendResponse(res, {
     success: true,
@@ -36,12 +36,36 @@ const deleteBlog = catchAsync(async (req: Request, res: Response) => {
     statusCode: 200,
   });
 });
+
+const getSingleBlog = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await BlogServies.getSingleblogFromDB(id);
+  //send response to client
+  sendResponse(res, {
+    success: true,
+    message: 'Blog retrived successfully',
+    statusCode: 200,
+    data: result,
+  });
+});
+
+const getUserSpecificBlog = catchAsync(async (req: Request, res: Response) => {
+  const { email } = req.params;
+  const result = await BlogServies.getUserSpecificBlogFromDB(email);
+  //send response to client
+  sendResponse(res, {
+    success: true,
+    message: 'Blogs retrived successfully',
+    statusCode: 200,
+    data: result,
+  });
+});
 const getAllBlog = catchAsync(async (req: Request, res: Response) => {
   const result = await BlogServies.getAllBlogFromDB(req.query);
   //send response to client
   sendResponse(res, {
     success: true,
-    message: 'Blogs fetched successfully',
+    message: 'Blogs retrived successfully',
     statusCode: 200,
     data: result,
   });
@@ -51,4 +75,6 @@ export const BlogControllers = {
   deleteBlog,
   updateBlog,
   getAllBlog,
+  getSingleBlog,
+  getUserSpecificBlog,
 };
