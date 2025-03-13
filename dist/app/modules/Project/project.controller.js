@@ -12,78 +12,78 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlogControllers = void 0;
+exports.ProjectControllers = void 0;
 const catchAsync_1 = __importDefault(require("../../uitls/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../uitls/sendResponse"));
-const blog_service_1 = require("./blog.service");
-const createBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield blog_service_1.BlogServies.createBlogIntoDB(req.body);
+const project_service_1 = require("./project.service");
+const createProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield project_service_1.ProjectServices.createProjectIntoDB(req.body);
     //send response to client
     (0, sendResponse_1.default)(res, {
         success: true,
-        message: 'Blog created successfully',
+        message: 'Project created successfully',
         statusCode: 201,
         data: result,
     });
 }));
-const updateBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield blog_service_1.BlogServies.updateBlogIntoDB(id, req.body);
+    const result = yield project_service_1.ProjectServices.updateProjectIntoDB(id, req.body);
     //send response to client
     (0, sendResponse_1.default)(res, {
         success: true,
-        message: 'Blog updated successfully',
+        message: 'Project updated successfully',
         statusCode: 200,
         data: result,
     });
 }));
-const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    yield blog_service_1.BlogServies.deleteBlogIntoDB(id);
+    yield project_service_1.ProjectServices.deleteProjectIntoDB(id);
     //send response to client
     (0, sendResponse_1.default)(res, {
         success: true,
-        message: 'Blog deleted successfully',
+        message: 'Project deleted successfully',
         statusCode: 200,
     });
 }));
-const getSingleBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSingleProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield blog_service_1.BlogServies.getSingleblogFromDB(id);
+    const result = yield project_service_1.ProjectServices.getSingleProjectFromDB(id);
     //send response to client
     (0, sendResponse_1.default)(res, {
         success: true,
-        message: 'Blog retrived successfully',
+        message: 'Project retrived successfully',
         statusCode: 200,
         data: result,
     });
 }));
-const getUserSpecificBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield project_service_1.ProjectServices.getAllProjectFormDB();
+    //send response to client
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        message: 'Projects retrived successfully',
+        statusCode: 200,
+        data: result,
+    });
+}));
+const getUserSpecificProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
-    const result = yield blog_service_1.BlogServies.getUserSpecificBlogFromDB(email);
+    const result = yield project_service_1.ProjectServices.getUserSpecificProjectFromDB(email);
     //send response to client
     (0, sendResponse_1.default)(res, {
         success: true,
-        message: 'Blogs retrived successfully',
+        message: 'Projects retrived successfully',
         statusCode: 200,
         data: result,
     });
 }));
-const getAllBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield blog_service_1.BlogServies.getAllBlogFromDB(req.query);
-    //send response to client
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        message: 'Blogs retrived successfully',
-        statusCode: 200,
-        data: result,
-    });
-}));
-exports.BlogControllers = {
-    createBlog,
-    deleteBlog,
-    updateBlog,
-    getAllBlog,
-    getSingleBlog,
-    getUserSpecificBlog,
+exports.ProjectControllers = {
+    createProject,
+    updateProject,
+    deleteProject,
+    getSingleProject,
+    getAllProject,
+    getUserSpecificProject,
 };

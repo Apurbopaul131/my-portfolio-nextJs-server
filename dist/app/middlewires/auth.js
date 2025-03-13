@@ -19,7 +19,7 @@ const user_model_1 = require("../modules/User/user.model");
 const auth = (...requiredRoles) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const token = req.headers.authorization.replace(/^Bearer\s/, '');
+            const token = req.headers.authorization;
             //check if token send from client
             if (!token) {
                 throw new AppError_1.default(401, 'Invalid credentials');

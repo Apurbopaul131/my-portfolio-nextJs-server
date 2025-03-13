@@ -1,7 +1,5 @@
 import express from 'express';
-import auth from '../../middlewires/auth';
 import validateRequest from '../../middlewires/validateRequest';
-import { USER_ROLE } from '../User/user.constant';
 
 import { BlogControllers } from './blog.controller';
 import { BlogValidations } from './blog.validation';
@@ -16,7 +14,6 @@ router.post(
 //update blog route
 router.patch(
   '/dashboard/blogs/:id',
-  auth(USER_ROLE.user),
   validateRequest(BlogValidations.updateBlogValidationSchema),
   BlogControllers.updateBlog,
 );

@@ -41,6 +41,14 @@ const blogSchema = new Schema<TBlog, BlogModel>(
       type: Date,
       default: Date.now,
     },
+    blog_writter: {
+      type: String,
+      required: [true, 'Blog writter is required'],
+    },
+    total_likes: {
+      type: String,
+      required: [true, 'Total like is required'],
+    },
   },
   {
     timestamps: true,

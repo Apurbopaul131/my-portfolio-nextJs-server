@@ -21,13 +21,42 @@ const blogSchema = new mongoose_1.Schema({
         required: [true, 'Content is required.'],
     },
     author: {
-        type: mongoose_1.Schema.Types.ObjectId,
+        type: String,
         required: [true, 'Author is required.'],
-        ref: 'User',
     },
-    isPublished: {
-        type: Boolean,
-        default: true,
+    image: {
+        type: String,
+        required: [true, 'Image url is required.'],
+    },
+    category: {
+        type: String,
+        enum: {
+            values: [
+                'Web Development',
+                'Mobile App Development',
+                'Software Engineering & Best Practices',
+                'Programming Languages',
+                'Data Science & Machine Learning',
+                'Cloud Computing & DevOps',
+                'Cybersecurity & Ethical Hacking',
+                'Game Development',
+                'Blockchain & Web3 Development',
+                'Tech Trends & Career Growth',
+            ],
+            message: '{VALUE} is not supported',
+        },
+    },
+    publish_date: {
+        type: Date,
+        default: Date.now,
+    },
+    blog_writter: {
+        type: String,
+        required: [true, 'Blog writter is required'],
+    },
+    total_likes: {
+        type: String,
+        required: [true, 'Total like is required'],
     },
 }, {
     timestamps: true,

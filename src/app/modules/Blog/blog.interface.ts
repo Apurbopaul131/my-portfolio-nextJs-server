@@ -18,6 +18,8 @@ export interface TBlog {
   image: string;
   category: BlogCategory;
   publish_date: Date;
+  blog_writter: string;
+  total_likes: string;
 }
 
 export interface BlogModel extends Model<TBlog> {
