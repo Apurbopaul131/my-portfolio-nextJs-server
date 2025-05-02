@@ -6,6 +6,8 @@ export type TProject = {
   description: string;
   image: string;
   liveLink: string;
+  futureScope: string;
+  challenges: string;
   repoLink: string;
   technologies: string;
   author: string;

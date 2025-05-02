@@ -41,7 +41,7 @@ const updateProjectIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, f
     const result = yield project_model_1.Project.findByIdAndUpdate(id, payload, {
         new: true,
         runValidators: true,
-    }).select('title year category description image liveLink repoLink technologies author');
+    }).select('title year category description futureScope challenges image liveLink repoLink technologies author');
     return result;
 });
 const deleteProjectIntoDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,7 +56,7 @@ const deleteProjectIntoDB = (id) => __awaiter(void 0, void 0, void 0, function* 
 });
 const getSingleProjectFromDB = (blogId) => __awaiter(void 0, void 0, void 0, function* () {
     const result = project_model_1.Project.findById(blogId)
-        .select('title year category description image liveLink repoLink technologies')
+        .select('title year category description futureScope challenges image liveLink repoLink technologies')
         .populate({
         path: 'author',
         select: 'name email role isBlocked',

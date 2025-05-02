@@ -33,7 +33,7 @@ const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
     new: true,
     runValidators: true,
   }).select(
-    'title year category description image liveLink repoLink technologies author',
+    'title year category description futureScope challenges image liveLink repoLink technologies author',
   );
   return result;
 };
@@ -52,7 +52,7 @@ const deleteProjectIntoDB = async (id: string) => {
 const getSingleProjectFromDB = async (blogId: string) => {
   const result = Project.findById(blogId)
     .select(
-      'title year category description image liveLink repoLink technologies',
+      'title year category description futureScope challenges image liveLink repoLink technologies',
     )
     .populate({
       path: 'author',

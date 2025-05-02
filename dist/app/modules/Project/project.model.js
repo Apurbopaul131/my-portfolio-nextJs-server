@@ -15,6 +15,8 @@ const ProjectSchema = new mongoose_1.Schema({
         required: true,
     },
     description: { type: String, required: true },
+    futureScope: { type: String, required: true },
+    challenges: { type: String, required: true },
     image: { type: String, required: true },
     liveLink: { type: String, required: true },
     repoLink: { type: String, required: true },
